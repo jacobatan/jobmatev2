@@ -17,7 +17,6 @@ const jobsRouter = require("./routes/jobs");
 
 const express = require("express");
 const app = express();
-app.use(cors());
 
 // error handler
 const notFoundMiddleware = require("./middleware/not-found");
@@ -30,6 +29,7 @@ app.use(
     max: 100, // limit each IP to 100 requests per windowMs
   })
 );
+app.use(cors());
 app.use(express.json());
 app.use(helmet());
 app.use(xss());
