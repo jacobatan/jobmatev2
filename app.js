@@ -17,6 +17,7 @@ const jobsRouter = require("./routes/jobs");
 
 const express = require("express");
 const app = express();
+app.use(cors());
 
 // error handler
 const notFoundMiddleware = require("./middleware/not-found");
@@ -31,7 +32,6 @@ app.use(
 );
 app.use(express.json());
 app.use(helmet());
-app.use(cors({ origin: true }));
 app.use(xss());
 // extra packages
 
