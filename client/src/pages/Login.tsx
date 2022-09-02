@@ -1,15 +1,17 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { Grid, Paper, Box, Typography, TextField, Button } from '@mui/material'
+import { Link } from "react-router-dom"
+import { UserContext } from '../context/UserContext'
+import Cookies from 'js-cookie'
 
 const Login = () => {
   const paperStyle = { padding: '30px 20px', width: 300, margin: "20px auto" }
-  const headerStyle = { margin: 0 }
+  const { user, setUser } = useContext(UserContext);
   const [formDetails, setFormDetails] = useState({ email: "", password: "" })
   const onSubmit = async () => {
-    console.log(formDetails);
+    setUser("har");
     try {
       const link = `${process.env.REACT_APP_LOCAL_LINK}/auth/login`
-      // const link = 'https://jobmate-api.onrender.com/api/v1/auth/register';
       const resp = await fetch(link, {
         method: 'POST',
         mode: 'cors',
@@ -19,18 +21,19 @@ const Login = () => {
         body: JSON.stringify(formDetails),
       })
       const data = await resp.json();
-      console.log(data)
+      // const userData: { token: string, name: string } = { token: data.token, name: data.user.name }
+      Cookies.set("name", data.user.name)
+      Cookies.set("token", data.token)
     } catch (err) {
       console.log(err)
     }
   }
-
-
   return (
     <Grid>
+      <Link to="/register/">Register</Link>
       <Paper elevation={20} style={paperStyle}>
         <Grid alignItems="center">
-          <h2 style={headerStyle}>Login</h2>
+          <Typography variant="h3"> login</Typography>
           <Typography variant='caption' gutterBottom>Login to your account!</Typography>
         </Grid>
         <Box component="form">
@@ -39,8 +42,8 @@ const Login = () => {
           {/* <TextField fullWidth label='Confirm Password' placeholder="Confirm your password" sx={{ my: 2 }} onChange={(e) => setFormDetails({ ...formDetails, name: e.target.value })} /> */}
           <Button variant='contained' color='primary' onClick={onSubmit}>Login</Button>
         </Box>
-      </Paper>
-    </Grid>
+      </Paper >
+    </Grid >
   )
 }
 
