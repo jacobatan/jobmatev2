@@ -6,10 +6,8 @@ import Cookies from 'js-cookie'
 
 const Login = () => {
   const paperStyle = { padding: '30px 20px', width: 300, margin: "20px auto" }
-  const { user, setUser } = useContext(UserContext);
   const [formDetails, setFormDetails] = useState({ email: "", password: "" })
   const onSubmit = async () => {
-    setUser("har");
     try {
       const link = `${process.env.REACT_APP_LOCAL_LINK}/auth/login`
       const resp = await fetch(link, {
