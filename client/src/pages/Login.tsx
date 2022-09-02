@@ -1,7 +1,6 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { Grid, Paper, Box, Typography, TextField, Button } from '@mui/material'
 import { Link } from "react-router-dom"
-import { UserContext } from '../context/UserContext'
 import Cookies from 'js-cookie'
 
 const Login = () => {
@@ -19,7 +18,6 @@ const Login = () => {
         body: JSON.stringify(formDetails),
       })
       const data = await resp.json();
-      // const userData: { token: string, name: string } = { token: data.token, name: data.user.name }
       Cookies.set("name", data.user.name)
       Cookies.set("token", data.token)
     } catch (err) {

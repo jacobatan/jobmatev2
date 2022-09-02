@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { Grid, Paper, Box, Typography, TextField, Button } from '@mui/material'
 import { UserContext } from '../context/UserContext'
 import Cookies from 'js-cookie'
@@ -6,14 +6,10 @@ import Cookies from 'js-cookie'
 const Register = () => {
   const paperStyle = { padding: '30px 20px', width: 300, margin: "20px auto" }
   const headerStyle = { margin: 0 }
-  const { user, setUser } = useContext(UserContext);
   const [formDetails, setFormDetails] = useState({ name: "", email: "", password: "" })
   const onSubmit = async () => {
-    const test = Cookies.get();
-    console.log(test)
     try {
       const link = `${process.env.REACT_APP_LOCAL_LINK}/auth/register`
-      // const link = 'https://jobmate-api.onrender.com/api/v1/auth/register';
       const resp = await fetch(link, {
         method: 'POST',
         mode: 'cors',
@@ -23,7 +19,8 @@ const Register = () => {
         body: JSON.stringify(formDetails),
       })
       const data = await resp.json();
-      console.log(data)
+      Cookies.set("name", data.user.name)
+      Cookies.set("token", data.token)
     } catch (err) {
       console.log(err)
     }
