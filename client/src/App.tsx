@@ -9,12 +9,14 @@ function App() {
   return (
     <BrowserRouter >
       <Routes>
-        <Route element={<ProtectedRoutes />}>
+        <Route element={<ProtectedRoutes exist={false} route="/login" />}>
           <Route path="/dashboard" element={<Dashboard />} />
         </Route>
         <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route element={<ProtectedRoutes exist={true} route="/dashboard" />}>
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Route>
       </Routes>
     </BrowserRouter >
   )

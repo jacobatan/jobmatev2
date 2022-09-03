@@ -1,11 +1,14 @@
 import { useState } from 'react'
 import { Grid, Paper, Box, Typography, TextField, Button } from '@mui/material'
-import { Link } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 import Cookies from 'js-cookie'
 
 const Login = () => {
   const paperStyle = { padding: '30px 20px', width: 300, margin: "20px auto" }
+
   const [formDetails, setFormDetails] = useState({ email: "", password: "" })
+
+
   const onSubmit = async () => {
     try {
       const link = `${process.env.REACT_APP_LOCAL_LINK}/auth/login`
@@ -26,7 +29,6 @@ const Login = () => {
   }
   return (
     <Grid>
-      <Link to="/register/">Register</Link>
       <Paper elevation={20} style={paperStyle}>
         <Grid alignItems="center">
           <Typography variant="h3"> login</Typography>
