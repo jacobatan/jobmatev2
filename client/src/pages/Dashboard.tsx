@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Grid, Paper, Box, Typography, TextField, Button, MenuItem, Modal } from '@mui/material'
 import Cookies from 'js-cookie'
 import Jobcard from '../components/Jobcard';
+import { GetAllJobs, CreateJob } from "../api/Jobapi"
 
 const statuses = [
   {
@@ -34,68 +35,14 @@ const Dashboard = () => {
   const [jobs, setJobs] = useState<any[]>([])
   const [open, setOpen] = useState(false);
 
-  const auth = Cookies.get();
-  const bearer = 'Bearer ' + auth.token;
-
-  const GetAllJobs = async () => {
-    try {
-      const link = `${process.env.REACT_APP_LOCAL_LINK}/jobs`
-      const resp = await fetch(link, {
-        method: 'GET',
-        mode: 'cors',
-        headers: {
-          'Authorization': bearer,
-          'Content-Type': 'application/json'
-        },
-      })
-      const data = await resp.json();
-      setJobs(data.jobs)
-    } catch (e) {
-      console.log(e)
-    }
-  }
-
-  const DeleteJob = async (id: string) => {
-    try {
-      const link = `${process.env.REACT_APP_LOCAL_LINK}/jobs/${id}`
-      const resp = await fetch(link, {
-        method: 'DELETE',
-        mode: 'cors',
-        headers: {
-          'Authorization': bearer,
-          'Content-Type': 'application/json'
-        },
-      })
-      GetAllJobs()
-    } catch (e) {
-      console.log(e)
-    }
-  }
-
   useEffect(() => {
-    GetAllJobs()
+    GetAllJobs({ setMyVar: setJobs })
   }, [])
 
   const onSubmit = async () => {
-    try {
-      const link = `${process.env.REACT_APP_LOCAL_LINK}/jobs`
-      const resp = await fetch(link, {
-        method: 'POST',
-        mode: 'cors',
-        headers: {
-          'Authorization': bearer,
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(jobDetails),
-      })
-      const data = await resp.json();
-      setOpen(false);
-      GetAllJobs()
-    } catch (err) {
-      console.log(err)
-    }
+    setOpen(false);
+    CreateJob({ setMyVar: setJobs, obj: jobDetails });
   }
-
 
   return (
     <>
@@ -107,7 +54,7 @@ const Dashboard = () => {
         <Grid>
           <Paper elevation={20} style={paperStyle}>
             <Grid alignItems="center">
-              <Typography variant="h3">create a job {auth.name}</Typography>
+              <Typography variant="h3">create a job {Cookies.get().name}</Typography>
               <Typography variant='caption' gutterBottom>create a job</Typography>
             </Grid>
             <Box component="form">
@@ -132,9 +79,11 @@ const Dashboard = () => {
           </Paper >
         </Grid >
       </Modal>
-      {
-        jobs?.map((job) => <Jobcard key={job._id} id={job._id} deleteJob={DeleteJob} company={job.company} position={job.position} status={job.status} />)
-      }
+      <div className="flex flex-wrap w-5/6 mx-auto">
+        {
+          jobs?.map((job) => <Jobcard key={job._id} id={job._id} setMyVar={setJobs} company={job.company} position={job.position} status={job.status} />)
+        }
+      </div>
     </>
   )
 }
