@@ -4,18 +4,21 @@ import Home from "./pages/Home";
 import Register from "./pages/Register";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
 import Dashboard from "./pages/Dashboard";
+import IncludeNavbar from "./utils/IncludeNavbar";
 
 function App() {
   return (
     <BrowserRouter >
       <Routes>
-        <Route element={<ProtectedRoutes exist={false} route="/login" />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Route>
-        <Route path="/" element={<Home />} />
-        <Route element={<ProtectedRoutes exist={true} route="/dashboard" />}>
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+        <Route path="/" element={<IncludeNavbar />}>
+          <Route path="/" element={<Home />} />
+          <Route element={<ProtectedRoutes exist={false} route="/login" />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
+          <Route element={<ProtectedRoutes exist={true} route="/dashboard" />}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter >
