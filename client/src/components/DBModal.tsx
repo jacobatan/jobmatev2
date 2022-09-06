@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { Modal } from '@mui/material'
 import { CreateJob } from "../api/Jobapi"
 
@@ -77,7 +77,7 @@ const DBModal = ({ myVar, setMyVar, setJobs }: iDBModal) => {
                     }
                   </select>
                 </div>
-                <button className="w-full text-white bg-blue-700 hover:bg-blue-800 
+                <button className="w-full text-white bg-blue-600 hover:bg-blue-700 
                   focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg 
                   text-sm px-5 py-2.5 text-center"
                   onClick={onSubmit}
