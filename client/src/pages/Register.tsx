@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Grid, Paper, Box, Typography, TextField, Button } from '@mui/material'
-import { UserContext } from '../context/UserContext'
 import Cookies from 'js-cookie'
 
 const Register = () => {

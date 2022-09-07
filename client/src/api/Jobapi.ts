@@ -9,6 +9,7 @@ interface iUseState {
 }
 
 
+
 export async function GetAllJobs({ setMyVar }: iUseState) {
   try {
     const link = `${process.env.REACT_APP_LOCAL_LINK}/jobs`

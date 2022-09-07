@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Grid, Paper, Box, Typography, TextField, Button } from '@mui/material'
-import { Link, Navigate } from "react-router-dom"
 import Cookies from 'js-cookie'
 
 const Login = () => {

@@ -1,5 +1,4 @@
 
-import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -10,19 +9,18 @@ import Menu from '@mui/material/Menu';
 import AddTaskIcon from '@mui/icons-material/AddTask';
 import { useNavigate } from 'react-router-dom';
 import DBModal from './DBModal';
+import { LoginContext } from '../context/Context';
+import Cookies from 'js-cookie';
+import { useContext, useState } from 'react';
 
-export default function Navbar() {
-  const [auth, setAuth] = React.useState(true);
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [jobs, setJobs] = React.useState<any[]>([])
-  const [open, setOpen] = React.useState(false);
+
+const Navbar = () => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [jobs, setJobs] = useState<any[]>([])
+  const { open, setOpen } = useContext(LoginContext);
 
   let navigate = useNavigate();
 
-
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAuth(event.target.checked);
-  };
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -39,7 +37,7 @@ export default function Navbar() {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: "#2766ec" }}>
           Jobmate
         </Typography>
-        {auth && (
+        {Cookies.get().token !== undefined && (
           <div>
             <IconButton
               size="large"
@@ -79,3 +77,4 @@ export default function Navbar() {
     // </Box>
   );
 }
+export default Navbar
