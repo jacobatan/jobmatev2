@@ -11,4 +11,6 @@ Tech:
 
 Future plans:
 
-None ATM!
+- [ ] Same color scheme throughout application
+- [ ] Demo accounts
+- [ ] Loader

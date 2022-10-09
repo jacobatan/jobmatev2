@@ -13,7 +13,6 @@ import { LoginContext } from '../context/Context';
 import Cookies from 'js-cookie';
 import { useContext, useState } from 'react';
 
-
 const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [jobs, setJobs] = useState<any[]>([])
@@ -34,10 +33,10 @@ const Navbar = () => {
     <AppBar position="sticky" sx={{ bgcolor: "white" }}>
       <DBModal myVar={open} setMyVar={setOpen} setJobs={setJobs} />
       <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: "#2766ec" }}>
+        <Typography className="hover:cursor-pointer" variant="h6" component="div" sx={{ flexGrow: 1, color: "#2766ec" }} onClick={() => navigate("/")}>
           Jobmate
         </Typography>
-        {Cookies.get().token !== undefined && (
+        {Cookies.get().token !== undefined ? (
           <div>
             <IconButton
               size="large"
@@ -68,8 +67,15 @@ const Navbar = () => {
               onClose={handleClose}
             >
               <MenuItem onClick={() => navigate("/dashboard")}>Dashboard</MenuItem>
-              <MenuItem onClick={handleClose}>TODO: Log out</MenuItem>
+              <MenuItem onClick={() => {
+                Cookies.remove("name");
+                Cookies.remove("token");
+                navigate("/")
+              }}>Log out</MenuItem>
             </Menu>
+          </div>
+        ) : (
+          <div className="text-black">
           </div>
         )}
       </Toolbar>

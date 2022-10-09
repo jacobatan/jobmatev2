@@ -12,7 +12,7 @@ interface iUseState {
 
 export async function GetAllJobs({ setMyVar }: iUseState) {
   try {
-    const link = `${process.env.REACT_APP_LOCAL_LINK}/jobs`
+    const link = `${process.env.REACT_APP_API_LINK}/jobs`
     const resp = await fetch(link, {
       method: 'GET',
       mode: 'cors',
@@ -30,7 +30,7 @@ export async function GetAllJobs({ setMyVar }: iUseState) {
 
 export async function DeleteJob({ id, setMyVar }: iUseState) {
   try {
-    const link = `${process.env.REACT_APP_LOCAL_LINK}/jobs/${id}`
+    const link = `${process.env.REACT_APP_API_LINK}/jobs/${id}`
     await fetch(link, {
       method: 'DELETE',
       mode: 'cors',
@@ -48,7 +48,7 @@ export async function DeleteJob({ id, setMyVar }: iUseState) {
 
 export async function CreateJob({ setMyVar, obj }: iUseState) {
   try {
-    const link = `${process.env.REACT_APP_LOCAL_LINK}/jobs`
+    const link = `${process.env.REACT_APP_API_LINK}/jobs`
     await fetch(link, {
       method: 'POST',
       mode: 'cors',

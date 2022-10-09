@@ -70,8 +70,8 @@ const DBModal = ({ myVar, setMyVar, setJobs }: iDBModal) => {
                     onChange={(e) => setJobDetails({ ...jobDetails, status: e.target.value })}
                   >
                     {
-                      statuses.map((status) => (
-                        <option>{status.value}</option>
+                      statuses.map((status, i) => (
+                        <option key={status.value + i}>{status.value}</option>
                       ))
                     }
                   </select>
