@@ -11,23 +11,25 @@ import { useState } from "react";
 function App() {
   const [open, setOpen] = useState(false);
   return (
-    <BrowserRouter >
+    <BrowserRouter>
       <LoginContext.Provider value={{ open: open, setOpen: setOpen }}>
         <Routes>
+          <Route path="/" element={<Home />} />
           <Route path="/" element={<IncludeNavbar />}>
-            <Route path="/" element={<Home />} />
             <Route element={<ProtectedRoutes exist={false} route="/login" />}>
               <Route path="/dashboard" element={<Dashboard />} />
             </Route>
-            <Route element={<ProtectedRoutes exist={true} route="/dashboard" />}>
+            <Route
+              element={<ProtectedRoutes exist={true} route="/dashboard" />}
+            >
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
             </Route>
           </Route>
         </Routes>
       </LoginContext.Provider>
-    </BrowserRouter >
-  )
+    </BrowserRouter>
+  );
 }
 
 export default App;
