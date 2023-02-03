@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { Grid, Paper, Box, Typography, TextField, Button } from '@mui/material'
-import { Link, Navigate } from "react-router-dom"
 import Cookies from 'js-cookie'
 
 const Login = () => {
@@ -10,8 +9,9 @@ const Login = () => {
 
 
   const onSubmit = async () => {
+    console.log(formDetails)
     try {
-      const link = `${process.env.REACT_APP_LOCAL_LINK}/auth/login`
+      const link = `${process.env.REACT_APP_API_LINK}/auth/login`
       const resp = await fetch(link, {
         method: 'POST',
         mode: 'cors',
@@ -38,7 +38,7 @@ const Login = () => {
           <TextField fullWidth label='Email' type="email" placeholder="Enter your email" sx={{ my: 2 }} onChange={(e) => setFormDetails({ ...formDetails, email: e.target.value })} />
           <TextField fullWidth label='Password' type="password" placeholder="Enter your password" sx={{ my: 2 }} onChange={(e) => setFormDetails({ ...formDetails, password: e.target.value })} />
           {/* <TextField fullWidth label='Confirm Password' placeholder="Confirm your password" sx={{ my: 2 }} onChange={(e) => setFormDetails({ ...formDetails, name: e.target.value })} /> */}
-          <Button variant='contained' color='primary' onClick={onSubmit}>Login</Button>
+          <Button variant='contained' className="bg-blue-700" style={{ backgroundColor: "red" }} onClick={onSubmit}>Login</Button>
         </Box>
       </Paper >
     </Grid >
