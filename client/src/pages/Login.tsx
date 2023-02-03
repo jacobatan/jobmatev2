@@ -1,48 +1,73 @@
-import { useState } from 'react'
-import { Grid, Paper, Box, Typography, TextField, Button } from '@mui/material'
-import Cookies from 'js-cookie'
+import { useState } from "react";
+import { Grid, Paper, Box, Typography, TextField, Button } from "@mui/material";
+import Cookies from "js-cookie";
 
 const Login = () => {
-  const paperStyle = { padding: '30px 20px', width: 300, margin: "20px auto" }
+  const paperStyle = { padding: "30px 20px", width: 300, margin: "20px auto" };
 
-  const [formDetails, setFormDetails] = useState({ email: "", password: "" })
-
+  const [formDetails, setFormDetails] = useState({ email: "", password: "" });
 
   const onSubmit = async () => {
-    console.log(formDetails)
     try {
-      const link = `${process.env.REACT_APP_API_LINK}/auth/login`
+      const link = `${process.env.REACT_APP_API_LINK}/auth/login`;
       const resp = await fetch(link, {
-        method: 'POST',
-        mode: 'cors',
+        method: "POST",
+        mode: "cors",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formDetails),
-      })
+      });
       const data = await resp.json();
-      Cookies.set("name", data.user.name)
-      Cookies.set("token", data.token)
+      Cookies.set("name", data.user.name);
+      Cookies.set("token", data.token);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
   return (
     <Grid>
       <Paper elevation={20} style={paperStyle}>
         <Grid alignItems="center">
           <Typography variant="h3"> login</Typography>
-          <Typography variant='caption' gutterBottom>Login to your account!</Typography>
+          <Typography variant="caption" gutterBottom>
+            Login to your account!
+          </Typography>
         </Grid>
         <Box component="form">
-          <TextField fullWidth label='Email' type="email" placeholder="Enter your email" sx={{ my: 2 }} onChange={(e) => setFormDetails({ ...formDetails, email: e.target.value })} />
-          <TextField fullWidth label='Password' type="password" placeholder="Enter your password" sx={{ my: 2 }} onChange={(e) => setFormDetails({ ...formDetails, password: e.target.value })} />
+          <TextField
+            fullWidth
+            label="Email"
+            type="email"
+            placeholder="Enter your email"
+            sx={{ my: 2 }}
+            onChange={(e) =>
+              setFormDetails({ ...formDetails, email: e.target.value })
+            }
+          />
+          <TextField
+            fullWidth
+            label="Password"
+            type="password"
+            placeholder="Enter your password"
+            sx={{ my: 2 }}
+            onChange={(e) =>
+              setFormDetails({ ...formDetails, password: e.target.value })
+            }
+          />
           {/* <TextField fullWidth label='Confirm Password' placeholder="Confirm your password" sx={{ my: 2 }} onChange={(e) => setFormDetails({ ...formDetails, name: e.target.value })} /> */}
-          <Button variant='contained' className="bg-blue-700" style={{ backgroundColor: "red" }} onClick={onSubmit}>Login</Button>
+          <Button
+            variant="contained"
+            className="bg-blue-700"
+            style={{ backgroundColor: "red" }}
+            onClick={onSubmit}
+          >
+            Login
+          </Button>
         </Box>
-      </Paper >
-    </Grid >
-  )
-}
+      </Paper>
+    </Grid>
+  );
+};
 
 export default Login;
