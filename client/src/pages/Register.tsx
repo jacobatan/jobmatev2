@@ -29,6 +29,7 @@ const Register = () => {
     const onSubmit = async () => {
       try {
         const link = `${process.env.REACT_APP_API_LINK}/auth/register`;
+        console.log("link", link);
         const resp = await fetch(link, {
           method: "POST",
           mode: "cors",
@@ -37,7 +38,9 @@ const Register = () => {
           },
           body: JSON.stringify(formDetails),
         });
+        console.log("resp", resp);
         const data = await resp.json();
+        console.log("data", data);
         Cookies.set("name", data.user.name);
         Cookies.set("token", data.token);
         navigate("/dashboard");

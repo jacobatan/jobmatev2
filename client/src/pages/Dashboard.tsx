@@ -15,24 +15,24 @@ const Dashboard = () => {
     GetAllJobs({ setMyVar: setJobs });
   }, [open]);
 
-  // if (!jobs.length) {
-  //   return (
-  //     <>
-  //       <div className="w-full h-full flex items-center justify-center my-auto pt-3">
-  //         {" "}
-  //         Click the
-  //         <IconButton
-  //           size="large"
-  //           onClick={() => setOpen(true)}
-  //           sx={{ color: "#2766ec" }}
-  //         >
-  //           <AddTaskIcon onClick={() => setOpen(true)} />
-  //         </IconButton>
-  //         to get started!
-  //       </div>
-  //     </>
-  //   );
-  // }
+  if (!jobs.length) {
+    return (
+      <>
+        <div className="w-full h-full flex items-center justify-center my-auto pt-3">
+          {" "}
+          Click the
+          <IconButton
+            size="large"
+            onClick={() => setOpen(true)}
+            sx={{ color: "#2766ec" }}
+          >
+            <AddTaskIcon onClick={() => setOpen(true)} />
+          </IconButton>
+          to get started!
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
